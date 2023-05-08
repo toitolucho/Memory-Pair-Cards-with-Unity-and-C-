@@ -268,8 +268,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseCard: {fileID: 3743105651330183522, guid: 9cc06abffaf6d8440b7c7d7ecf93ece9, type: 3}
-  rows: 2
-  columns: 3
   initialPoint: {fileID: 386358023}
   hiddenImage: {fileID: 21300000, guid: 265f4ee4ab5df4b438b71c7ceaa4b52a, type: 3}
   gameManager: {fileID: 2130184042}
@@ -320,6 +318,7 @@ MonoBehaviour:
   rows: 2
   columns: 3
   hiddenImage: {fileID: 21300000, guid: 265f4ee4ab5df4b438b71c7ceaa4b52a, type: 3}
+  gridManager: {fileID: 1896878981}
 --- !u!4 &2130184043
 Transform:
   m_ObjectHideFlags: 0

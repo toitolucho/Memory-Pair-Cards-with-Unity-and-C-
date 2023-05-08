@@ -26,9 +26,9 @@ public class GameManager : MonoBehaviour
     {
        
         
-        gridManager.Rows = rows;
-        gridManager.Columns = columns;
-        
+        //gridManager.Rows = rows;
+        //gridManager.Columns = columns;
+        gridManager.configureValues(rows, columns); 
         firstCardSelected = secondCardSelected = null;
     }
     

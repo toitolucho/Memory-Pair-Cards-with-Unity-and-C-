@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 
 
@@ -74,6 +75,35 @@ public class GridCardManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Este metodo tiene el objetivo de pasar los valores de las filas y columnas que debe tener la grilla
+    /// </summary>
+    /// <param name="rows">Numero de Filas</param>
+    /// <param name="columns">Numero de columnas</param>
+    public void configureValues(int rows, int columns)
+    {
+        if(rows*columns %2 !=0)
+        {
+            Debug.LogWarning("No se puede crear una distribucion que no forme una cantidad par de elementos");
+            Debug.Log("Se inicializara por defecto el escenario de 2x3");
+            rows = 2;
+            columns = 3;
+            return;
+
+        }
+        Rows = rows; Columns = columns;
+    }
+
+    public void Reset()
+    {
+        foreach (var card in cardList)
+        {
+            Destroy(card.gameObject);
+        }
+        cardList.Clear();   
+        cardStack.Clear();  
+    }
+
+    /// <summary>
     /// metodo que permite cargar los recursos de manera estatica por codigo, sin necesidad de utilizar el editor de unity
     /// </summary>
     public void loadResources()
@@ -99,6 +129,10 @@ public class GridCardManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             createScene();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reset();
         }
     }
 
