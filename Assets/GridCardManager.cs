@@ -45,7 +45,8 @@ public class GridCardManager : MonoBehaviour
     /// </summary>
     Stack<CartaManager> cardStack;
     /// <summary>
-    /// Imagen que represent a la carta Oculta
+    /// Imagen que represent a 
+    /// 1la carta Oculta
     /// </summary>
     [SerializeField]
     Sprite hiddenImage;

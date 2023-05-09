@@ -142,7 +142,7 @@ public class CartaManager : MonoBehaviour
         //print("Me pincharon");
         if (isHidden)// si la imagen esta oculta, entonces hay que mostrarla
             showUp();
-        else// caso contraro, debemos ocultarla
+        else// caso contrario, debemos ocultarla
             gameManager.hideCard(this);
     }
 

@@ -50,26 +50,69 @@ public class GameManager : MonoBehaviour
         //gridManager.Rows = rows;
         //gridManager.Columns = columns;
         //configuramos los valores iniciales con los cuales el gridamanager lograra crear la matriz de cartas distribuida en filas por columnas
-        
+        gridManager.configureValues(rows, columns); 
         //inicializamos las variables auxiliares de cartas en nulas
-        
+        firstCardSelected = secondCardSelected = null;
     }
     
     public void hideCard(CartaManager card)
     {
-        
+        card.hide(hiddenImage);
+        numberOfClicks--;
     }
 
     public void reviewMatch() 
     {
-        
+        if(numberOfClicks == 2)
+        {
+            if (firstCardSelected.isMatchWith(secondCardSelected))
+            {
+                print("you find a pair " );
+                firstCardSelected.debug();
+                secondCardSelected.debug(); 
+                firstCardSelected.disAppear();
+                secondCardSelected.disAppear();
+                numberOfMatches++;
+                if(numberOfMatches == rows*columns/2) 
+                {
+                    print("You did it!!");
+                }
+            }
+            else
+            {
+                print("is not a match");
+                firstCardSelected.hide(hiddenImage);
+                secondCardSelected.hide(hiddenImage);
+            }
+            numberOfClicks = 0;
+        }
     }
 
     public void storeCardPlayed(CartaManager playedCard)
     {
-       
+        numberOfClicks++;
+        if (numberOfClicks == 1)
+        {
+            firstCardSelected = playedCard;
+        }
+        else if (numberOfClicks == 2)
+        {
+            secondCardSelected = playedCard;
+            //reviewMatch();
+            Invoke("reviewMatch", 1);
+        }
+        else
+        {
+            //en el caso de que se quiera seleccionar mas de 2 cartas
+            playedCard.hide(hiddenImage);
+            numberOfClicks--;
+            //numberOfClicks = 0;
+        }
 
     }
 
-
+    void disabledCardsExcludingSelected()
+    {
+        
+    }
 }
