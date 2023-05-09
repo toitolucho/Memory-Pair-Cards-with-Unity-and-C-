@@ -28,3 +28,42 @@ We will work on the base of:
 
 Those marked with red are implemente in first hand, and the other ones will be implemented by yourself guided with a tutorial
 
+## Classes General Description of Attributes
+
+#### CardManager
+
+```http
+  Represents a card in the scene
+```
+
+| Attribute | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `integer` | **Identifier** that represets an unique key value to review if there is a match in a selecction of two elements on the grid |
+| `isHidden` | `boolean` | This is a boolean value, that indicates if the card is displaying the image of the category or is displaying the hidden image |
+| `image` | `Sprite` | Actually, this is the image that must be displayed on the card, when it is not hidden |
+| `gameManager` | `GameManager` | this is a reference of the gameManager in the scene |
+
+#### GridManager
+
+```http
+  Represents the Grid that is created dinamically based on the numbers of rows and columns using a datasource of images
+```
+
+| Attribute | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `spriteSource      | Sprite[,] | A Matrix of Sprites that will be used in the game, each row is a category |
+| `baseCard          | `GameObject (Prefab)` | **Prefab** that reference to a basic configuration of the card, considerint it to have a Collider, Animator and CardManager Components |
+| `categoryList      | `List<Image>` | List of Spirtes of an specific category |
+| `Rows              | `Integer` | Number of rows that must appear on the scene |
+| `Columns           | `Integer` | Number of columns that must appear on the scene |
+| `initialPoint      | `Transform` | Refence point where to start the first card. Based on it, the distribution takes the initial point of it to add a **DX** and **DY** |
+| `cardList          | `List<CardManager>` | List of Components of the CardList of each object of Card  |
+| `cardStack         | `Stack<CardManager>` | Stack of Components of the CardList of each object of Card  |
+| `hiddenImage       | `Sprite` | Reference to the sprite that represents a Hidden image |
+| `gameManager       | `GameManager` | Reference to the GameManager |
+| `numberCategories  | `Integer` | **Const**. Number of categories |
+| `numberElements    | `Integer` | **Const**. number of elements that has a category |
+
+#### add(num1, num2)
+
+Takes two numbers and returns the sum.
