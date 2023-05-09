@@ -51,18 +51,18 @@ Those marked with red are implemente in first hand, and the other ones will be i
 
 | Attribute | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `spriteSource      | Sprite[,] | A Matrix of Sprites that will be used in the game, each row is a category |
-| `baseCard          | `GameObject (Prefab)` | **Prefab** that reference to a basic configuration of the card, considerint it to have a Collider, Animator and CardManager Components |
-| `categoryList      | `List<Image>` | List of Spirtes of an specific category |
-| `Rows              | `Integer` | Number of rows that must appear on the scene |
-| `Columns           | `Integer` | Number of columns that must appear on the scene |
-| `initialPoint      | `Transform` | Refence point where to start the first card. Based on it, the distribution takes the initial point of it to add a **DX** and **DY** |
-| `cardList          | `List<CardManager>` | List of Components of the CardList of each object of Card  |
-| `cardStack         | `Stack<CardManager>` | Stack of Components of the CardList of each object of Card  |
-| `hiddenImage       | `Sprite` | Reference to the sprite that represents a Hidden image |
-| `gameManager       | `GameManager` | Reference to the GameManager |
-| `numberCategories  | `Integer` | **Const**. Number of categories |
-| `numberElements    | `Integer` | **Const**. number of elements that has a category |
+| `spriteSource    `| Sprite[,] | A Matrix of Sprites that will be used in the game, each row is a category |
+| `baseCard        `| `GameObject (Prefab)` | **Prefab** that reference to a basic configuration of the card, considerint it to have a Collider, Animator and CardManager Components |
+| `categoryList    `| `List<Image>` | List of Spirtes of an specific category |
+| `Rows            `| `Integer` | Number of rows that must appear on the scene |
+| `Columns         `| `Integer` | Number of columns that must appear on the scene |
+| `initialPoint    `| `Transform` | Refence point where to start the first card. Based on it, the distribution takes the initial point of it to add a **DX** and **DY** |
+| `cardList        `| `List<CardManager>` | List of Components of the CardList of each object of Card  |
+| `cardStack       `| `Stack<CardManager>` | Stack of Components of the CardList of each object of Card  |
+| `hiddenImage     `| `Sprite` | Reference to the sprite that represents a Hidden image |
+| `gameManager     `| `GameManager` | Reference to the GameManager |
+| `numberCategories`| `Integer` | **Const**. Number of categories |
+| `numberElements  `| `Integer` | **Const**. number of elements that has a category |
 
 #### add(num1, num2)
 
