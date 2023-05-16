@@ -17,7 +17,7 @@ public class CartaManager : MonoBehaviour
     /// <summary>
     /// atributo de estado que indica si una carta esta volcada boca abajo(oculta), o esta visualizando su contenido como tal
     /// </summary>
-    bool isHidden;//estaOculto
+    public bool IsHidden { get; set; }//estaOculto
     /// <summary>
     /// La imagen que se visualizara cuando la carta no este oculta de acuerdo a la categoria seleccionada
     /// </summary>
@@ -46,7 +46,7 @@ public class CartaManager : MonoBehaviour
     public void hide(Sprite hiddenImage)
     {
         this.GetComponent<SpriteRenderer>().sprite = hiddenImage;
-        isHidden = true;
+        IsHidden = true;
     }
 
     //funcion que permite mostrar la imagen original
@@ -58,7 +58,7 @@ public class CartaManager : MonoBehaviour
     public void showUp()
     {
         this.GetComponent<SpriteRenderer>().sprite = image;
-        isHidden = false;
+        IsHidden = false;
         gameManager.storeCardPlayed(this);
     }
     /// <summary>
@@ -81,7 +81,7 @@ public class CartaManager : MonoBehaviour
     public void setInitialValues(int id, Sprite image, Sprite hideImage, GameManager manager) {
         this.id = id;
         this.image = image;
-        this.isHidden = true;
+        this.IsHidden = true;
         this.gameManager = manager;
         GetComponent<SpriteRenderer>().sprite = hideImage;
     }
@@ -113,7 +113,7 @@ public class CartaManager : MonoBehaviour
     {
         this.id = baseCard.id;
         this.image = baseCard.image;
-        this.isHidden = baseCard.isHidden;
+        this.IsHidden = baseCard.IsHidden;
         this.gameManager = baseCard.gameManager;
         //print("Objecto " + gameObject.GetComponent<SpriteRenderer>().sprite.name);
 
@@ -140,7 +140,7 @@ public class CartaManager : MonoBehaviour
     public void OnMouseDown()
     {
         //print("Me pincharon");
-        if (isHidden)// si la imagen esta oculta, entonces hay que mostrarla
+        if (IsHidden)// si la imagen esta oculta, entonces hay que mostrarla
             showUp();
         else// caso contrario, debemos ocultarla
             gameManager.hideCard(this);
@@ -156,4 +156,19 @@ public class CartaManager : MonoBehaviour
     {
         return this.id == card.id;
     }    
+
+    public void showPreview()
+    {
+        //this.GetComponent<SpriteRenderer>().sprite = image;
+        StartCoroutine(ShowAndHide());
+    }
+
+    private IEnumerator ShowAndHide()
+    {
+        Sprite OldImage = this.GetComponent<SpriteRenderer>().sprite;
+        this.GetComponent<SpriteRenderer>().sprite = image;
+        yield return new WaitForSeconds(1);
+        this.GetComponent<SpriteRenderer>().sprite = OldImage;
+
+    }
 }

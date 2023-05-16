@@ -45,14 +45,18 @@ public class GameManager : MonoBehaviour
     GridCardManager gridManager;
     public void Start()
     {
-       
-        
+
+
         //gridManager.Rows = rows;
         //gridManager.Columns = columns;
         //configuramos los valores iniciales con los cuales el gridamanager lograra crear la matriz de cartas distribuida en filas por columnas
-        gridManager.configureValues(rows, columns); 
+
+        //inicializamos las variables auxiliares de cartas en nulas
+        gridManager.configureValues(rows, columns, 2.5f , 3.2f, 1);
+
         //inicializamos las variables auxiliares de cartas en nulas
         firstCardSelected = secondCardSelected = null;
+
     }
     
     public void hideCard(CartaManager card)

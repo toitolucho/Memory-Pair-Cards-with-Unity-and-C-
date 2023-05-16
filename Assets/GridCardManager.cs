@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -56,11 +57,17 @@ public class GridCardManager : MonoBehaviour
     [SerializeField]
     GameManager gameManager;
 
+    
+    private float dx = 3.5f; //espacio de separacion entre punto pivote de cada imagen en X
+    private float dy = 4;//espacio de separacion entre punto pivote de cada imagen en Y
+
     /// <summary>
     /// considrando que se tiene un limit de numero de categorias, inicialmente de 1
     /// </summary>
     const short numberCategories = 1;
     const short numberElements = 9;
+
+    private short numberOfCategoriesOnGame = 1;
 
 
     // Start is called before the first frame update
@@ -94,12 +101,29 @@ public class GridCardManager : MonoBehaviour
         Rows = rows; Columns = columns;
     }
 
+    public void configureValues(int row, int column, float dxSpace, float dySpaces, short numberofCategoriesOnGame)
+    {
+        configureValues(row, column);
+        dx = dxSpace; dy = dySpaces;
+        numberOfCategoriesOnGame = numberofCategoriesOnGame;
+
+    }
+
     public void Reset()
     {
-        foreach (var card in cardList)
+        if(cardList.Count > 0)
         {
-            Destroy(card.gameObject);
+           // print("Manager " + cardList[0]);
+            if (cardList[0]!=null)
+            {
+                foreach (var card in cardList)
+                {
+                    Destroy(card.gameObject);
+                }
+            }
+            
         }
+        
         cardList.Clear();   
         cardStack.Clear();  
     }
@@ -135,6 +159,10 @@ public class GridCardManager : MonoBehaviour
         {
             Reset();
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            showPreviewOfCards();
+        }
     }
 
     /// <summary>
@@ -143,6 +171,8 @@ public class GridCardManager : MonoBehaviour
     /// </summary>
     public void createScene()
     {
+        //Reseteamos inicialmente cualquier cosa que se haya hecho en la escena, quitando los componentes o elementos ya utilizados
+        Reset();
 
          //randomizamos una categoria y cargamos la lista de imagenes correspondientes a esa categoria
         randomizeCategory();
@@ -152,16 +182,18 @@ public class GridCardManager : MonoBehaviour
 
         //apuntamos al punto de referencia de arranque para crear los objetos cartas
         Vector3 posicion = initialPoint.position;
-        float dx = 3.5f; //espacio de separacion entre punto pivote de cada imagen en X
-        float dy = 4;//espacio de separacion entre punto pivote de cada imagen en Y
+        
         for (int j = 0; j < Rows; j++)
         {
             for (int i = 0; i < Columns; i++)
             {
 
                 GameObject card = Instantiate(baseCard, posicion, Quaternion.identity);
-                cardList.Add(card.GetComponent<CartaManager>());
+                CartaManager cartaScript = card.GetComponent<CartaManager>();
+                cardList.Add(cartaScript);
+                //cartaScript.showPreview();
                 posicion.x += dx;
+                
                 //card.GetComponent<SpriteRenderer>().sprite = categoryList[i];   
             }
             posicion.x = initialPoint.position.x;
@@ -214,21 +246,54 @@ public class GridCardManager : MonoBehaviour
 
 
     }
+
+
+    public void showPreviewOfCards()
+    {
+        if(cardList.Count > 0)
+        {
+            foreach(CartaManager carta in cardList)
+            {
+                if(carta.IsHidden)
+                {
+                    carta.showPreview();
+                }
+                
+            }
+        }
+    }
     /// <summary>
-    /// Selecciona una categoria al azar del datasource de imagenes
+    /// Selecciona una categoria al azar del datasource de imagenes, considerando el numero de categorias configurada
     /// </summary>
     public void randomizeCategory()
     {
         // print(spriteSource.GetLength(0) + " " + spriteSource.GetLength(1));
 
-        categoryList.Clear();
-        int k = Random.Range(0, numberCategories);
-        for (int i = 0; i < spriteSource.GetLength(1); i++)
-        {
 
-            //print(spriteSource[k, i].name);
-            categoryList.Add(spriteSource[k, i]);
+        short[] generatedCategories = new short[numberCategories];
+        int k;
+        categoryList.Clear();
+        int counterGeneratedCategories = 0;
+        while(counterGeneratedCategories < numberOfCategoriesOnGame)
+        {
+            do {
+                k = Random.Range(0, numberCategories);
+            } while (generatedCategories[k]!=0);
+
+            
+
+            for (int i = 0; i < spriteSource.GetLength(1); i++)
+            {
+
+                //print(spriteSource[k, i].name);
+                categoryList.Add(spriteSource[k, i]);
+            }
+            generatedCategories[k] = 1;
+            counterGeneratedCategories++;
         }
+        
+
+
     }
     /// <summary>
     /// metodo que permite barajear la lista de imagenes actual
