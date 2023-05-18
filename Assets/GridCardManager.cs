@@ -163,6 +163,10 @@ public class GridCardManager : MonoBehaviour
         {
             showPreviewOfCards();
         }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            createSceneAsStack();
+        }
     }
 
     /// <summary>
@@ -198,6 +202,43 @@ public class GridCardManager : MonoBehaviour
             }
             posicion.x = initialPoint.position.x;
             posicion.y -= dy;
+
+        }
+
+        distributeCardsData();
+        print("Escena creada");
+    }
+
+    public void createSceneAsStack()
+    {
+        //Reseteamos inicialmente cualquier cosa que se haya hecho en la escena, quitando los componentes o elementos ya utilizados
+        Reset();
+
+        //randomizamos una categoria y cargamos la lista de imagenes correspondientes a esa categoria
+        randomizeCategory();
+
+        //barajeamos las imagenes en la categoria seleccionada
+        suffleCategory();
+
+        //apuntamos al punto de referencia de arranque para crear los objetos cartas
+        Vector3 posicion = initialPoint.position;
+
+        for (int j = 0; j < Rows; j++)
+        {
+            for (int i = 0; i < Columns; i++)
+            {
+
+                GameObject card = Instantiate(baseCard, posicion, Quaternion.identity);
+                CartaManager cartaScript = card.GetComponent<CartaManager>();
+                cardList.Add(cartaScript);
+                //cartaScript.showPreview();
+                posicion.x += 0.05f;
+                posicion.y -= 0.05f;
+
+                //card.GetComponent<SpriteRenderer>().sprite = categoryList[i];   
+            }
+            //posicion.x = initialPoint.position.x;
+            
 
         }
 
