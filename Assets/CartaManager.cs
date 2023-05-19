@@ -171,4 +171,16 @@ public class CartaManager : MonoBehaviour
         this.GetComponent<SpriteRenderer>().sprite = OldImage;
 
     }
+    
+    public IEnumerator MoveTo(Vector3 targetPosition, int numberSegments)
+    {
+        float distance = Vector3.Distance( transform.position, targetPosition );
+        float dxy = distance / numberSegments;
+        
+        while(distance > 0.05f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, dxy);
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
 }
