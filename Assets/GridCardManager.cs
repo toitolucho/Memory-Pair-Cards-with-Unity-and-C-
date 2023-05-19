@@ -374,5 +374,26 @@ public class GridCardManager : MonoBehaviour
 
 
     }
+    
+    public void moveToPositionsInGrid()
+    {
+        Vector3 posicion = initialPoint.position;
+        int aux = 0;
+        for (int j = 0; j < Rows; j++)
+        {
+            for (int i = 0; i < Columns; i++)
+            {
+
+                CartaManager card = cardList[aux];
+                card.StartCoroutine(card.MoveTo(posicion,5));
+                posicion.x += dx;
+                aux++;
+                //card.GetComponent<SpriteRenderer>().sprite = categoryList[i];   
+            }
+            posicion.x = initialPoint.position.x;
+            posicion.y -= dy;
+
+        }
+    }
 
 }
